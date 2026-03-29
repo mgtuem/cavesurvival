@@ -1,15 +1,11 @@
 import { useGame } from '../contexts/GameContext';
 
 const WEAPON_LABELS = {
-  fist: '👊',
-  iron_sword: '⚔️',
-  iron_axe: '🪓',
-  diamond_sword: '💎⚔️',
-  pistol: '🔫',
+  fist:'👊', iron_sword:'⚔️', iron_axe:'🪓', diamond_sword:'💎⚔️', pistol:'🔫', shotgun:'💥', crossbow:'🏹',
 };
 
 export default function HUD() {
-  const { hp, maxHp, armor, coins, wave, weapon, ammo, t } = useGame();
+  const { hp, maxHp, armor, coins, wave, weapon, ammo, inventory, t, gameMode } = useGame();
 
   const hpPct = Math.max(0, (hp / maxHp) * 100);
   const armorPct = Math.max(0, (armor / 50) * 100);
@@ -19,50 +15,61 @@ export default function HUD() {
     <div className="absolute top-0 left-0 right-0 z-20 pointer-events-none">
       {/* Top bar */}
       <div className="flex items-center justify-between px-3 pt-2">
-        {/* Wave */}
         <div className="font-pixel text-[9px] text-cave-gold bg-black/40 px-3 py-1 rounded">
-          {t('wave')} {wave}/5
+          {gameMode === 'pvp' ? '⚔️ PvP' : `${t('wave')} ${wave}/5`}
         </div>
-
-        {/* Coins */}
         <div className="font-pixel text-[9px] text-cave-gold bg-black/40 px-3 py-1 rounded">
           🪙 {coins}
         </div>
-
-        {/* Weapon */}
         <div className="font-pixel text-[9px] text-white bg-black/40 px-3 py-1 rounded">
           {WEAPON_LABELS[weapon] || '👊'}
-          {weapon === 'pistol' && <span className="ml-1 text-cave-accent">{ammo}</span>}
+          {ammo > 0 && <span className="ml-1 text-cave-accent">{ammo}</span>}
         </div>
       </div>
 
+      {/* Inventory bar (top center) */}
+      {inventory && inventory.length > 0 && (
+        <div className="flex justify-center mt-1 gap-1">
+          {/* Fist slot */}
+          <div className={`w-8 h-8 rounded border flex items-center justify-center text-xs ${
+            weapon === 'fist' ? 'border-cave-gold bg-cave-gold/20' : 'border-white/10 bg-black/30'
+          }`}>👊</div>
+          {inventory.map((item, i) => (
+            <div
+              key={i}
+              className={`w-8 h-8 rounded border flex items-center justify-center text-xs relative ${
+                weapon === item.type ? 'border-cave-gold bg-cave-gold/20' : 'border-white/10 bg-black/30'
+              }`}
+            >
+              {WEAPON_LABELS[item.type] || '?'}
+              {item.ammo > 0 && (
+                <span className="absolute -bottom-1 -right-1 font-pixel text-[5px] text-cave-accent bg-black/60 px-0.5 rounded">
+                  {item.ammo}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Bottom-left HP/Armor */}
       <div className="absolute bottom-16 left-3 w-36">
-        {/* HP Bar */}
         <div className="mb-1">
           <div className="flex items-center justify-between mb-0.5">
             <span className="font-pixel text-[7px] text-cave-green">{t('hp')}</span>
             <span className="font-pixel text-[7px] text-white/60">{hp}/{maxHp}</span>
           </div>
           <div className="w-full h-3 bg-black/50 rounded-sm overflow-hidden border border-white/10">
-            <div
-              className={`h-full ${hpColor} transition-all duration-200`}
-              style={{ width: `${hpPct}%` }}
-            />
+            <div className={`h-full ${hpColor} transition-all duration-200`} style={{ width: `${hpPct}%` }} />
           </div>
         </div>
-
-        {/* Armor Bar */}
         <div>
           <div className="flex items-center justify-between mb-0.5">
             <span className="font-pixel text-[7px] text-cave-blue">{t('armor')}</span>
             <span className="font-pixel text-[7px] text-white/60">{armor}/50</span>
           </div>
           <div className="w-full h-2.5 bg-black/50 rounded-sm overflow-hidden border border-white/10">
-            <div
-              className="h-full bg-cave-blue transition-all duration-200"
-              style={{ width: `${armorPct}%` }}
-            />
+            <div className="h-full bg-cave-blue transition-all duration-200" style={{ width: `${armorPct}%` }} />
           </div>
         </div>
       </div>

@@ -154,7 +154,7 @@ function drawMineBackground(canvas) {
 }
 
 export default function MainMenu() {
-  const { setScreen, t } = useGame();
+  const { setScreen, t, totalCoins } = useGame();
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -189,25 +189,30 @@ export default function MainMenu() {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-4 flex-wrap justify-center">
+        <div className="flex gap-3 flex-wrap justify-center">
           <button
-            onClick={() => setScreen('difficulty')}
+            onClick={() => setScreen('modeselect')}
             className="font-pixel text-white text-sm md:text-base px-8 py-4 bg-cave-accent/80 hover:bg-cave-accent border-2 border-cave-accent rounded-lg transition-all hover:scale-105 active:scale-95 shadow-lg shadow-cave-accent/30"
           >
             {t('play')}
           </button>
           <button
-            onClick={() => setScreen('multiplayer')}
-            className="font-pixel text-white text-sm md:text-base px-8 py-4 bg-green-600/60 hover:bg-green-600/80 border-2 border-green-500 rounded-lg transition-all hover:scale-105 active:scale-95 shadow-lg shadow-green-500/20"
+            onClick={() => setScreen('skins')}
+            className="font-pixel text-white text-sm md:text-base px-6 py-4 bg-purple-600/50 hover:bg-purple-600/70 border-2 border-purple-400 rounded-lg transition-all hover:scale-105 active:scale-95"
           >
-            🌐 Online
+            🎨 Skins
           </button>
           <button
             onClick={() => setScreen('options')}
-            className="font-pixel text-white text-sm md:text-base px-8 py-4 bg-cave-mid/80 hover:bg-cave-light border-2 border-cave-light rounded-lg transition-all hover:scale-105 active:scale-95"
+            className="font-pixel text-white text-sm md:text-base px-6 py-4 bg-cave-mid/80 hover:bg-cave-light border-2 border-cave-light rounded-lg transition-all hover:scale-105 active:scale-95"
           >
             {t('options')}
           </button>
+        </div>
+
+        {/* Total coins display */}
+        <div className="font-pixel text-[8px] text-cave-gold/60 mt-3">
+          🪙 Gesamt: {totalCoins}
         </div>
       </div>
     </div>

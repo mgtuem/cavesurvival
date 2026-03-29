@@ -1,7 +1,7 @@
 import { useGame } from '../contexts/GameContext';
 
 export default function VictoryScreen() {
-  const { returnToMenu, coins, t } = useGame();
+  const { returnToMenu, coins, totalCoins, t } = useGame();
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-cave-dark relative overflow-hidden">
