@@ -54,6 +54,7 @@ export function GameProvider({ children }) {
   const [multiplayerPlayers, setMultiplayerPlayers] = useState([]);
 
   const phaserGameRef = useRef(null);
+  const multiplayerRef = useRef(null);
 
   // Load saved data from localStorage
   useEffect(() => {
@@ -154,6 +155,7 @@ export function GameProvider({ children }) {
     multiplayerRoom, setMultiplayerRoom,
     multiplayerPlayers, setMultiplayerPlayers,
     phaserGameRef,
+    multiplayerRef,
     t, startGame, returnToMenu,
   };
 

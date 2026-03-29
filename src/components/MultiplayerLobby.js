@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useGame } from '../contexts/GameContext';
 
 export default function MultiplayerLobby({ onBack, onStartGame }) {
-  const { t, setMultiplayerRoom, setMultiplayerPlayers } = useGame();
+  const { t, setMultiplayerRoom, setMultiplayerPlayers, multiplayerRef } = useGame();
   const [mode, setMode] = useState(null); // null | 'create' | 'join'
   const [roomCode, setRoomCode] = useState('');
   const [status, setStatus] = useState('');
@@ -65,6 +65,7 @@ export default function MultiplayerLobby({ onBack, onStartGame }) {
 
   const handleStartGame = () => {
     setMultiplayerPlayers(players);
+    if (multiplayerRef) multiplayerRef.current = manager;
     onStartGame(manager);
   };
 

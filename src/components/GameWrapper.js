@@ -41,7 +41,7 @@ export default function GameWrapper() {
         difficulty: gameCtx.difficulty,
         gameMode: gameCtx.gameMode,
         selectedSkin: gameCtx.selectedSkin,
-        multiplayerMgr: null,
+        multiplayerMgr: gameCtx.multiplayerRef?.current || null,
       });
 
       sceneRef.current = scene;

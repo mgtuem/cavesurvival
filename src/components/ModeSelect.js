@@ -18,8 +18,21 @@ export default function ModeSelect() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">⛏️</span>
               <div>
-                <span className="text-white text-sm block">Survival</span>
+                <span className="text-white text-sm block">Survival Solo</span>
                 <p className="text-white/40 text-[8px] mt-1">5 Wellen überleben · Mobs besiegen · Loot sammeln</p>
+              </div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => { setGameMode('coop'); setScreen('multiplayer'); }}
+            className="w-full font-pixel text-left px-5 py-5 bg-blue-500/15 border-2 border-blue-400 rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🤝</span>
+              <div>
+                <span className="text-white text-sm block">Survival Online</span>
+                <p className="text-white/40 text-[8px] mt-1">Zusammen mit Freunden · Gemeinsam Wellen überleben</p>
               </div>
             </div>
           </button>

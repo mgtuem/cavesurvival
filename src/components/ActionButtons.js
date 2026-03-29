@@ -23,7 +23,7 @@ export default function ActionButtons({ onAttack, onBlock, onJump, onSwitch, par
       <div className="flex flex-col items-center">
         <button
           onTouchStart={(e) => { e.preventDefault(); onJump(); }}
-          onMouseDown={onJump}
+          onClick={(e) => { if (!('ontouchstart' in window)) onJump(); }}
           style={btnStyle('rgba(74,222,128,0.35)')}
         >⬆️</button>
         <span className="font-pixel text-[5px] text-white/30 mt-0.5">Jump</span>
@@ -34,7 +34,7 @@ export default function ActionButtons({ onAttack, onBlock, onJump, onSwitch, par
         <div className="flex flex-col items-center">
           <button
             onTouchStart={(e) => { e.preventDefault(); onSwitch(); }}
-            onMouseDown={onSwitch}
+            onClick={(e) => { if (!('ontouchstart' in window)) onSwitch(); }}
             style={btnStyle('rgba(245,197,66,0.3)')}
           >🔄</button>
           <span className="font-pixel text-[5px] text-cave-gold mt-0.5">
@@ -48,7 +48,7 @@ export default function ActionButtons({ onAttack, onBlock, onJump, onSwitch, par
         <div className="relative">
           <button
             onTouchStart={(e) => { e.preventDefault(); onBlock(); }}
-            onMouseDown={onBlock}
+            onClick={(e) => { if (!('ontouchstart' in window)) onBlock(); }}
             style={{
               ...btnStyle('rgba(96,165,250,0.4)'),
               boxShadow: parryCooldown <= 0 ? '0 0 8px rgba(245,197,66,0.4)' : 'none',
@@ -67,7 +67,7 @@ export default function ActionButtons({ onAttack, onBlock, onJump, onSwitch, par
       <div className="flex flex-col items-center">
         <button
           onTouchStart={(e) => { e.preventDefault(); onAttack(); }}
-          onMouseDown={onAttack}
+          onClick={(e) => { if (!('ontouchstart' in window)) onAttack(); }}
           style={btnStyle('rgba(233,69,96,0.4)')}
         >👊</button>
         <span className="font-pixel text-[5px] text-white/30 mt-0.5">ATK</span>
